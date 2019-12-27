@@ -1,5 +1,5 @@
-from app import db
-from backend.models import Client, ClientConfigParam
+from backend.database import db
+from backend.database import models
 
 def create_client(data):
     client_id = data.get('clientid')
@@ -11,7 +11,7 @@ def create_client(data):
     added_by = data.get('addedby')
     updated_by = data.get('updatedby')
 
-    client = Client(client_id, client_guid, name, enabled_flag, date_added, date_updated, added_by, updated_by)
+    client = models.Client(client_id, client_guid, name, enabled_flag, date_added, date_updated, added_by, updated_by)
     db.session.add(client)
     db.session.commit()
 
@@ -24,6 +24,6 @@ def create_client_config_param(data):
     added_by = data.get('addedby')
     updated_by = data.get('updatedby')
 
-    clientconfigparam = ClientConfigParam(client_id, name, value, date_added, date_updated, added_by, updated_by)
+    clientconfigparam = models.ClientConfigParam(client_id, name, value, date_added, date_updated, added_by, updated_by)
     db.session.add(clientconfigparam)
     db.session.commit()

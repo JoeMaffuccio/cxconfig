@@ -1,6 +1,10 @@
 from flask_restplus import fields
 from . import apimodel
 
+authuser = apimodel.api.model('Userauth', {
+    'email': fields.String(required=True),
+    'password': fields.String(required=True)})
+
 person = apimodel.api.model('Person', {
     'personid': fields.Integer(readonly=True),
     'firstname': fields.String(required=True),
