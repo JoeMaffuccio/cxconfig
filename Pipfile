@@ -12,6 +12,7 @@ pymysql = "*"
 flask-restplus = "*"
 flask-jwt-extended = "*"
 requests = "*"
+flask-login = "*"
 
 [requires]
 python_version = "3.6"

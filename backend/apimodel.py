@@ -1,6 +1,8 @@
+from flask import Blueprint
 from flask_restplus import Api
 from sqlalchemy.orm.exc import NoResultFound
 
+api_blueprint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(version='0.1', title='ConnexControl API', description='A simple Connex Control API')
 
 @api.errorhandler
