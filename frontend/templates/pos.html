@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br />
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">POSID</th>
+        <th scope="col">POSGUID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Activation Code</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pos in poss %}
+      <tr>
+        <th scope="row">
+          <a class="nav-link" data-toggle="collapse" href="#collapseExample-{{pos["posguid"]}}" role="button" aria-expanded="false" aria-controls="collapseExample">{{pos["posid"]}}</a>
+        </th>
+        <td>{{pos["posguid"]}}</td>
+        <td>{{pos["name"]}}</td>
+        <td>{{pos["activationcode"]}}</td>
+        <td>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <button type="button" class="btn btn-primary btn-sm">REPOLL</button>
+            <button type="button" class="btn btn-primary btn-sm">ACTIVATE</button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          <div class="collapse" id="collapseExample-{{pos["posguid"]}}">
+            <div class="card" style="width: 18rem;">
+              <div class="card-header">
+                Software
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{pos["postype"]["manufacturername"]}}</li>
+                <li class="list-group-item">{{pos["postype"]["name"]}}</li>
+                <li class="list-group-item">{{pos["postype"]["description"]}}</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

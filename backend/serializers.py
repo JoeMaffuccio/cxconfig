@@ -42,6 +42,18 @@ client_config_param = apimodel.api.model('ClientConfigParam', {
     'addedbyuser': fields.Nested(person),
     'updatedbyuser': fields.Nested(person)})
 
+pos_config_param = apimodel.api.model('PosConfigParam', {
+    'posid': fields.Integer(readOnly=True),
+    'name': fields.String(required=True),
+    'value': fields.String(required=True)})
+
+golivedate = apimodel.api.model('PosConfigParam', {
+    'value': fields.String(required=True)})
+
+pos_attribute = apimodel.api.model('PosAttribute', {
+    'posattributetypeid': fields.Integer(readOnly=True),
+    'value': fields.String(required=True)})
+
 pos = apimodel.api.model('Pos', {
     'posid': fields.Integer(readOnly=True, description='unique identifier of a pos'),
     'posguid': fields.String(required=True, description='pos guid'),
@@ -51,20 +63,16 @@ pos = apimodel.api.model('Pos', {
     'timezone': fields.Nested(timezone),
     'allowactivationflag': fields.Integer,
     'activationcode': fields.String,
-    'enabledflag': fields.Integer(required=True, description='client enabled'),
+    'enabledflag': fields.Integer(required=True, description='pos enabled'),
+    'productionflag': fields.Integer(description='production flag'),
+    'golivedate': fields.String(attribute="golivedate.value"),
+    'posattributes' : fields.Nested(pos_attribute),
     'dateadded': fields.DateTime,
     'dateupdated': fields.DateTime,
     'addedbyuser': fields.Nested(person),
     'updatedbyuser': fields.Nested(person)})
 
-pos_config_param = apimodel.api.model('PosConfigParam', {
-    'posid': fields.Integer(readOnly=True),
-    'name': fields.String(required=True),
-    'value': fields.String(required=True),
-    'dateadded': fields.DateTime,
-    'dateupdated': fields.DateTime,
-    'addedbyuser': fields.Nested(person),
-    'updatedbyuser': fields.Nested(person)})
+
 
 cdmjob = apimodel.api.model('Cdmjob', {
     'jobid': fields.Integer,

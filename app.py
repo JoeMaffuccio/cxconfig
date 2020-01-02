@@ -3,6 +3,7 @@ from backend import app
 from flask_jwt_extended import JWTManager
 from flask_login import LoginManager 
 from datetime import datetime
+#from flask_cors import CORS
 from flask_restplus import Api, Resource
 from backend.apimodel import api, api_blueprint
 from backend.database import db
@@ -15,6 +16,7 @@ import settings
 
 jwt = JWTManager(app)
 login_manager = LoginManager()
+#cors = CORS(app)
     
 def configure_app(flask_app):
     flask_app.config['FLASK_DEBUG'] = settings.FLASK_DEBUG
@@ -47,7 +49,8 @@ def initialize_app(flask_app):
 
 def main():
     initialize_app(app)
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=19999)
+    #app.run()
 
 if __name__ == "__main__":
     main()

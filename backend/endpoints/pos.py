@@ -8,7 +8,7 @@ from sqlalchemy.orm.exc import NoResultFound
 posns = apimodel.api.namespace('pos', description='operations related to pos')
 
 @posns.route('/<int:clientid>')
-@apimodel.api.response(404, 'pos not found')
+@apimodel.api.response(404, 'clientid not found')
 class PosCollection(Resource):
 
     @apimodel.api.marshal_with(serializers.pos)

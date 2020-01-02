@@ -16,9 +16,9 @@ parser.add_argument('Authorization', location='headers')
 class ClientCollection(Resource):
 
     @apimodel.api.marshal_list_with(serializers.client)
-    @apimodel.api.header('Authorization:', 'JWT TOKEN', required=True)
+    # @apimodel.api.header('Authorization:', 'JWT TOKEN', required=True)
     @apimodel.api.expect(parser)
-    @jwt_required
+    # @jwt_required
     def get(self):
         """
         Returns list of clients

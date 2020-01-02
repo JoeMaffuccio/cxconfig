@@ -46,6 +46,20 @@ class Person(db.Model):
     def __repr__(self):
         return '<Person %r>' % self.personid
 
+class PosAttribute(db.Model):
+    __tablename__  = 'posattribute'
+    posattributetypeid = db.Column(db.Integer, primary_key=True, nullable=False)
+    posid = db.Column(db.Integer)
+    value = db.Column(db.String(1000))
+
+    def __init__(self, posattributetypeid, posid, value):
+        self.posattributetypeid = posattributetypeid
+        self.posid = posid
+        self.value = value
+
+    def __repr__(self):
+        return '<PosAttribute %r>' % self.posattributetypeid
+
 class Client(db.Model):
     clientid = db.Column(db.Integer, primary_key=True)
     clientguid = db.Column(db.String(64))
@@ -114,14 +128,22 @@ class Pos(db.Model):
     allowactivationflag = db.Column(db.Integer)
     activationcode = db.Column(db.String(100))
     enabledflag = db.Column(db.Integer)
+    productionflag = db.Column(db.Integer)
     dateadded = db.Column(db.DateTime)
     dateupdated = db.Column(db.DateTime)
     addedby = db.Column(db.Integer, db.ForeignKey('person.personid'))
     addedbyuser = db.relationship('Person', foreign_keys=[addedby], uselist=False)
     updatedby = db.Column(db.Integer, db.ForeignKey('person.personid'))
     updatedbyuser = db.relationship('Person', foreign_keys=[updatedby], uselist=False)
+ #   golivedate = db.relationship("PosConfigParam", viewonly=True, 
+ #                                primaryjoin="and_(foreign(Pos.posid)==PosConfigParam.posid, PosConfigParam.name=='GOLIVE_BIZ_DATE')", 
+ #                                uselist=False)
+ #   posattributes = db.relationship('PosAttribute', viewonly=True, 
+ #                                primaryjoin="and_(foreign(Pos.posid)==PosAttribute.posid)", 
+ #                                uselist=True)
 
-    def __init__(self, posid, posguid, postypeid, name, timezoneid, allowactivationflag, activationcode, enabledflag, dateadded, dateupdated, addedby, updatedby):
+
+    def __init__(self, posid, posguid, postypeid, name, timezoneid, allowactivationflag, activationcode, enabledflag, dateadded, dateupdated, addedby, updatedby, golivedate):
         self.posid = posid
         self.posguid = posguid
         self.postypeid = postypeid
@@ -138,12 +160,13 @@ class Pos(db.Model):
         self.dateupdated = dateupdated
         self.addedby = addedby
         self.updatedby = updatedby
+        self.golivedate = golivedate
 
     def __repr__(self):
         return '<Pos %r>' % self.posid
 
 class PosConfigParam(db.Model):
-    posid = db.Column(db.Integer, primary_key=True)
+    posid = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(200), primary_key=True)
     value = db.Column(db.String(5000))
     dateadded = db.Column(db.DateTime)
